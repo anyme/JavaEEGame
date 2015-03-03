@@ -37,7 +37,7 @@ public class BoardClass {
                 line = reader.readLine();
                 if (line != null) {
                     aMow.setInstructions(line.toLowerCase());
-                    mPositions.put(aMow.getCurrentPositionString(), aMow);
+                    mPositions.put(getKey(aMow), aMow);
                     mQueue.add(aMow);
                 }
             }
@@ -81,21 +81,22 @@ public class BoardClass {
         mPositions.put(newKey, mPositions.remove(oldKey));
     }
 
-    private  void handleMowMovements(MowClass aMow) {
-        String aKey = aMow.getXCurrent() + " " + aMow.getYCurrent();
-        displayBoard();
+    private String getKey(MowClass aMow) {
+        return aMow.getXCurrent() + "" + aMow.getYCurrent();
+    }
+
+    private void handleMowMovements(MowClass aMow) {
+        String aKey;
         while (aMow.readNextInstruction()) {
+            aKey = getKey(aMow);
             int x = aMow.getNextXPosition();
             int y = aMow.getNextYPosition();
 
             if (!isOutOfBounds(x, y) && !isOccupied(x, y)) {
                 aMow.makeMove();
-                updatePositions(aKey, aMow.getXCurrent() + " " + aMow.getYCurrent());
+                updatePositions(aKey, aMow.getXCurrent() + "" + aMow.getYCurrent());
             }
-            displayBoard();
         }
-
-
     }
 
     public void startReadingInstructions() {
@@ -104,23 +105,4 @@ public class BoardClass {
         }
     }
 
-    public void displayBoard() {
-        for (int j = 0; j < mWidth ; ++j) {
-            System.out.print(" " + j);
-        }
-        System.out.println(" ");
-
-        for (int i = mHeight - 1; i >= 0; --i) {
-            System.out.print(i + "");
-            for (int j = 0; j < mWidth ; ++j) {
-                if (mPositions.get(j + "" + i) != null) {
-                    System.out.print(mPositions.get(j + "" + i).getDirectionCurrent() + " ");
-                } else {
-                    System.out.print("- ");
-                }
-            }
-            System.out.println(" ");
-        }
-
-    }
 }
