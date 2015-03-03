@@ -16,11 +16,12 @@ public class BoardClass {
     HashMap<String, MowClass> mPositions = null;
     ArrayList<MowClass> mQueue = null;
 
-    public BoardClass(InputStream in) {
-
+    public BoardClass() {
         this.mPositions = new HashMap<String, MowClass>();
         this.mQueue = new ArrayList<MowClass>();
+    }
 
+    public void initBoard(InputStream in) {
         BufferedReader reader = new BufferedReader(new InputStreamReader(in));
         String line;
 
@@ -41,7 +42,6 @@ public class BoardClass {
                     mQueue.add(aMow);
                 }
             }
-
             reader.close();
         } catch (Exception e) {
             e.printStackTrace();

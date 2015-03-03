@@ -27,7 +27,8 @@ public class UploadFileServlet extends HttpServlet {
 
         if (inputStream != null) {
                 InputStream in = request.getPart("file").getInputStream();
-                mowGame = new MowGameClass(in);
+                mowGame = new MowGameClass();
+                mowGame.initBoard(in);
                 mowGame.play();
                 request.setAttribute("message",  mowGame.getResults());
         } else {

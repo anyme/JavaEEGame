@@ -9,8 +9,12 @@ public class MowGameClass {
 
     BoardClass board;
 
-    MowGameClass(InputStream in) {
-        this.board = new BoardClass(in);
+    MowGameClass() {
+        this.board = new BoardClass();
+    }
+
+    public void initBoard(InputStream in) {
+        board.initBoard(in);
     }
 
     public void play() {
