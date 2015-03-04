@@ -1,16 +1,16 @@
 #form label.error {
 	padding: 20px;
-    color: #D9373F;
+    color: #DD577A;
 }
 #form input.error {
-    border: 2px solid #D9373F;
+    border: 2px solid #DD577A;
 }
 #outsideContainer {
 	position: relative;
 	margin: 0;
 	width: 100%;
 	height: 100%;
-	background-color: #23897F;
+	background-color: #DD577A;
 	overflow: hidden;
 }
 #insideContainer {
@@ -19,7 +19,7 @@
 	padding: 20px;
 	width: fill;
 	height: 80%;
-	background-color: #DDB238;
+	background-color: #FFF0CF;
 	border-radius: 15px;
 }
 #header {
@@ -37,5 +37,5 @@
 	margin: 5px;
 	font-size: 14pt;
 	border-radius: 10px;
-	background-color: #BB8119;
+	background-color: #49AEC0;
 }
