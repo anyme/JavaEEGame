@@ -3,108 +3,108 @@ package com.example;
 /**
  * Created by anastasia on 27/02/15.
  */
-public class MowClass {
+public class MowClass extends MowBase {
 
+    private final String initStatePattern = "^[0-9]+\\s[0-9]+\\s[NEWS]$";
+    private final String instructionsPattern = "^[AGD]+$";
 
-    private int xCurrent = 0;
-    private int yCurrent = 0;
-    private String mInsrtuctions = "";
-    private int mCurrentInstruction = 0;
-    private final String mDirections = "nesw";
-    private int mDirectionCurrent = 0;
-
-    public MowClass(String aCurrentPosition) throws MowExceptions {
-        String parts[] = aCurrentPosition.split("\\s+");
-        if (parts.length == 3) {
-            xCurrent = Integer.parseInt(parts[0]);
-            yCurrent = Integer.parseInt(parts[1]);
-            mDirectionCurrent = mDirections.indexOf(parts[2].charAt(0));
-        } else throw new MowExceptions("Bad arguments");
-
+    public MowClass(String aCurrentPosition) {
+        validateInitialStateInput(aCurrentPosition);
+        parseArguments(aCurrentPosition);
     }
 
-    public void setInstructions(String anInstruction) {
-        mInsrtuctions = anInstruction;
-    }
+    @Override
+    public boolean readInstructionsFlow(){
+        while (currentInstruction < instructions.length()){
+            if (instructions.charAt(currentInstruction) == GOLEFT)  { turnLeft(); }
+            if (instructions.charAt(currentInstruction) == GORIGHT) { turnRight(); }
+            if (instructions.charAt(currentInstruction) == FORWARD) {
 
-    public String getCurrentPositionString() {
-        return xCurrent + " " + yCurrent;
-    }
-
-    public Character getDirectionCurrent() {
-        return mDirections.charAt(mDirectionCurrent);
-    }
-
-    public String getFullState() {
-        return getCurrentPositionString() + " " + getDirectionCurrent().toString().toUpperCase();
-    }
-
-    public int getXCurrent() {
-        return xCurrent;
-    }
-
-    public int getYCurrent() {
-        return yCurrent;
-    }
-
-    public boolean readNextInstruction(){
-        while (mCurrentInstruction < mInsrtuctions.length() && mInsrtuctions.charAt(mCurrentInstruction) != 'a'){
-            if (mInsrtuctions.charAt(mCurrentInstruction) == 'g') { turnLeft(); }
-            if (mInsrtuctions.charAt(mCurrentInstruction) == 'd') { turnRight(); }
-            ++mCurrentInstruction;
-        }
-        if (mCurrentInstruction < mInsrtuctions.length()) {
-            ++mCurrentInstruction;
-            return true;
+                ++currentInstruction;
+                return true;
+            }
+            ++currentInstruction;
         }
         return false;
     }
 
-    public int getNextXPosition() {
-        switch (this.getDirectionCurrent()) {
-            case 'n':
-                return xCurrent;
-
-            case 's' :
-                return xCurrent;
-
-            case 'e' :
-                return xCurrent + 1;
-
-            case 'w' :
-                return xCurrent - 1;
+    @Override
+    public void validateInitialStateInput(String initState) {
+        super.validateInitialStateInput(initState);
+        if (!initState.matches(initStatePattern)) {
+            throw new IllegalArgumentException("Illegal initial state format");
         }
-        return -1;
     }
 
-    public int getNextYPosition() {
-        switch (this.getDirectionCurrent()) {
-            case 'n':
-                return yCurrent + 1;
-
-            case 's' :
-                return yCurrent - 1;
-
-            case 'e' :
-                return yCurrent;
-
-            case 'w' :
-                return yCurrent;
+    @Override
+    public void validateInstructionsInput(String aInstructions) {
+        super.validateInstructionsInput(aInstructions);
+        if (!aInstructions.matches(instructionsPattern)) {
+            throw new IllegalArgumentException("Illegal instructions format");
         }
-        return -1;
+
     }
 
-    public void makeMove() {
+    public void parseArguments(String args) {
+        String parts[] = args.split("\\s+");
+        xCurrent = Integer.parseInt(parts[0]);
+        yCurrent = Integer.parseInt(parts[1]);
+        setDirectionCurrent(parts[2].charAt(0));
+    }
+
+    @Override
+    public void setInstructions(String anInstruction) {
+        validateInstructionsInput(anInstruction);
+        super.setInstructions(anInstruction);
+    }
+
+    @Override
+    public void turnLeft() {
+        switch (this.getDirectionCurrent()) {
+            case NORTH:
+                setDirectionCurrent(NESW.WEST);
+                break;
+
+            case SOUTH:
+                setDirectionCurrent(NESW.EAST);
+                break;
+
+            case EAST:
+                setDirectionCurrent(NESW.NORTH);
+                break;
+
+            case WEST:
+                setDirectionCurrent(NESW.SOUTH);
+                break;
+
+        }
+    }
+
+    @Override
+    public void turnRight() {
+        switch (this.getDirectionCurrent()) {
+            case NORTH:
+                setDirectionCurrent(NESW.EAST);
+                break;
+
+            case SOUTH:
+                setDirectionCurrent(NESW.WEST);
+                break;
+
+            case EAST:
+                setDirectionCurrent(NESW.SOUTH);
+                break;
+
+            case WEST:
+                setDirectionCurrent(NESW.NORTH);
+                break;
+        }
+    }
+
+    @Override
+    public void forward() {
         xCurrent = getNextXPosition();
         yCurrent = getNextYPosition();
-    }
-
-    public void turnLeft() {
-        mDirectionCurrent = (mDirectionCurrent + 3) % 4;
-    }
-
-    public void turnRight() {
-        mDirectionCurrent = (mDirectionCurrent + 1) % 4;
     }
 
 }
