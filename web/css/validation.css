@@ -1,0 +1,41 @@
+#form label.error {
+	padding: 20px;
+    color: #D9373F;
+}
+#form input.error {
+    border: 2px solid #D9373F;
+}
+#outsideContainer {
+	position: relative;
+	margin: 0;
+	width: 100%;
+	height: 100%;
+	background-color: #23897F;
+	overflow: hidden;
+}
+#insideContainer {
+	margin-left: 10%;
+	margin-right: 10%;
+	padding: 20px;
+	width: fill;
+	height: 80%;
+	background-color: #DDB238;
+	border-radius: 15px;
+}
+#header {
+	height: 5%;
+}
+#headerTitle {
+	margin-left: 5px;
+}
+#file {
+	padding: 5px;
+	font-size: 14pt;
+}
+
+#submit {
+	margin: 5px;
+	font-size: 14pt;
+	border-radius: 10px;
+	background-color: #956F05;
+}
