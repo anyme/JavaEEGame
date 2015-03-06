@@ -27,7 +27,7 @@ public abstract class MowBase {
         if (initState == null) {
             throw new NullPointerException("Illegal null");
         }
-        if (initState == "") {
+        if (initState.isEmpty()) {
             throw new IllegalArgumentException("Illegal empty string");
         }
     }
@@ -36,7 +36,7 @@ public abstract class MowBase {
         if (aInstructions == null) {
             throw new NullPointerException("Illegal null");
         }
-        if (aInstructions == "") {
+        if (aInstructions.isEmpty()) {
             throw new IllegalArgumentException("Illegal empty string");
         }
     }

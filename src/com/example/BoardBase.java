@@ -57,7 +57,7 @@ public abstract class BoardBase {
         if (dimen == null) {
             throw new NullPointerException("Illegal null");
         }
-        if (dimen == "") {
+        if (dimen.isEmpty()) {
             throw new IllegalArgumentException("Illegal empty string");
         }
     }
