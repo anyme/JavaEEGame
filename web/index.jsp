@@ -17,6 +17,9 @@
       </form>
       <div id="status">
       </div>
+      <div>
+          <button id="start" type="button" onclick="startGameRequest();">Lancer Jeu</button>
+      </div>
     </div>
   </div>
   

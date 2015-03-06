@@ -10,7 +10,7 @@ import java.io.InputStreamReader;
 public class BoardClass extends BoardBase {
 
     private final String dimensionPattern = "^[0-9]+\\s[0-9]+$";
-    private final String NEWLINE = "<br/>";
+    private final String NEWLINE = "\\n";
 
     @Override
     protected void setDimensions(String dimen) {

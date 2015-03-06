@@ -67,6 +67,35 @@ function validateUpload() {
     request.send(null);
 
 }
+function parseResponse(response) {
+    return response.replace(/\\n/g, "<br />");
+}
+
+function checkGameStatusCallback() {
+    var response;
+    if (request.readyState == 4) {
+        if (request.status == 200) {
+            response = request.responseXML.getElementsByTagName("message")[0].childNodes[0].nodeValue;
+            if (response !== "fail") {
+                clearInterval(repeatGameStatusCheck);
+                response = parseResponse(response);
+                display("Results: <br/><br/>" + response);
+                showForm();
+            }
+        }
+    }
+
+}
+
+function checkGameStatus() {
+    var url = "CheckGameStatusServlet?filename=" + filename;
+
+    initRequest();
+    request.open("GET", url, true);
+    request.onreadystatechange = checkGameStatusCallback;
+    request.send(null);
+
+}
 
 function performAjaxSubmit() {
     var form = document.getElementById('#form');
@@ -91,9 +120,27 @@ function performAjaxSubmit() {
 
 }
 
+function startGameRequest() {
+    var url = "StartGameServlet?filename=" + filename;
+    initRequest();
+
+    request.open("POST", url, true);
+    request.send(null);
+    repeatGameStatusCheck = setInterval(function() {
+        checkGameStatus();
+    }, repeatTimeout);
+    display("En attent des resultats...")
+    hideStartButton();
+}
 
 function display(message) {
     $("#status").html(message);
+}
+function showStartButton(){
+    document.getElementById("start").style.display = "block";
+}
+function hideStartButton(){
+    document.getElementById("start").style.display = "none";
 }
 function hideForm() {
     document.getElementById("form").style.display = "none";

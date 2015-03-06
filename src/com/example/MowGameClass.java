@@ -21,7 +21,8 @@ public class MowGameClass {
         board.startReadingInstructions();
     }
 
-    public String getResults() {
-        return board.getPositions();
+    public void getResults(String filename) {
+        System.out.println(" board positions :  " + board.getPositions());
+        GameCache.cache.put(filename, board.getPositions());
     }
 }

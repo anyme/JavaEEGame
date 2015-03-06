@@ -44,3 +44,11 @@
     height: auto;
     width: auto;
 }
+
+#start {
+    margin: 5px;
+    font-size: 14pt;
+    border-radius: 10px;
+    background-color: #49AEC0;
+    display: none;
+}
