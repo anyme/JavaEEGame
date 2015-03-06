@@ -22,22 +22,18 @@ public class BoardClass extends BoardBase {
         super();
     }
 
-    public void initBoard(InputStream in) {
+    public void initBoard(InputStream in) throws Exception{
         BufferedReader reader = new BufferedReader(new InputStreamReader(in));
         String line;
-        try {
-            setDimensions(reader.readLine());
+        setDimensions(reader.readLine());
 
-            while ((line = reader.readLine()) != null) {
-                MowClass aMow = new MowClass(line);
-                aMow.setInstructions(reader.readLine());
-                board.put(getKey(aMow), aMow);
-                mow.add(aMow);
-            }
-            reader.close();
-        } catch (Exception e) {
-            e.printStackTrace();
+        while ((line = reader.readLine()) != null) {
+            MowClass aMow = new MowClass(line);
+            aMow.setInstructions(reader.readLine());
+            board.put(getKey(aMow), aMow);
+            mow.add(aMow);
         }
+        reader.close();
 
     }
 
