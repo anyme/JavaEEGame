@@ -7,10 +7,37 @@
     <servlet>
         <servlet-name>Upload File Servlet</servlet-name>
         <servlet-class>com.example.UploadFileServlet</servlet-class>
-        <load-on-startup>2</load-on-startup>
+        <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet-mapping>
         <servlet-name>Upload File Servlet</servlet-name>
         <url-pattern>/UploadFileServlet</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>Check File Status Servlet</servlet-name>
+        <servlet-class>com.example.CheckFileStatusServlet</servlet-class>
+        <load-on-startup>2</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Check File Status Servlet</servlet-name>
+        <url-pattern>/CheckFileStatusServlet</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>Start Game Servlet</servlet-name>
+        <servlet-class>com.example.StartGameServlet</servlet-class>
+        <load-on-startup>2</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Start Game Servlet</servlet-name>
+        <url-pattern>/StartGameServlet</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>Check Game Staus Servlet</servlet-name>
+        <servlet-class>com.example.CheckGameStatusServlet</servlet-class>
+        <load-on-startup>2</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Check Game Staus Servlet</servlet-name>
+        <url-pattern>/CheckGameStatusServlet</url-pattern>
     </servlet-mapping>
 </web-app>

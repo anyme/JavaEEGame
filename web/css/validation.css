@@ -39,3 +39,8 @@
 	border-radius: 10px;
 	background-color: #49AEC0;
 }
+#status {
+    margin: 5px;
+    height: auto;
+    width: auto;
+}

@@ -7,8 +7,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.UUID;
 
 /**
  * Created by anastasia on 26/02/15.
@@ -21,21 +23,27 @@ import java.io.InputStream;
 public class UploadFileServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        MowGameClass mowGame = null;
+        String filename;
 
         ServletInputStream inputStream = request.getInputStream();
 
         if (inputStream != null) {
                 InputStream in = request.getPart("file").getInputStream();
-                mowGame = new MowGameClass();
-                mowGame.initBoard(in);
-                mowGame.play();
-                request.setAttribute("message",  mowGame.getResults());
-        } else {
-            request.setAttribute("message", "Error occurred");
+                if ((filename = getFileName(request.getPart("file"))) != null) {
+                    FileCache.cache.put(filename, in);
+                }
         }
+    }
 
-        request.getRequestDispatcher("/response.jsp").forward(
-                request, response);
+    private String getFileName(Part part) {
+        String contentDisp = part.getHeader("content-disposition");
+        System.out.println("content-disposition header= "+contentDisp);
+        String[] tokens = contentDisp.split(";");
+        for (String token : tokens) {
+            if (token.trim().startsWith("filename")) {
+                return token.substring(token.indexOf("=") + 2, token.length()-1);
+            }
+        }
+        return "" + UUID.randomUUID();
     }
 }
