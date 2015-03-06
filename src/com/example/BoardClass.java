@@ -1,6 +1,7 @@
 package com.example;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
@@ -22,7 +23,7 @@ public class BoardClass extends BoardBase {
         super();
     }
 
-    public void initBoard(InputStream in) throws Exception{
+    public void initBoard(InputStream in) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(in));
         String line;
         setDimensions(reader.readLine());

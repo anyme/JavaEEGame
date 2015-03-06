@@ -13,7 +13,7 @@ public class MowGameClass {
         this.board = new BoardClass();
     }
 
-    public void initBoard(InputStream in) {
+    public void initBoard(InputStream in) throws Exception {
         board.initBoard(in);
     }
 
