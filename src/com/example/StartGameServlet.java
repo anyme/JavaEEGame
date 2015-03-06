@@ -12,11 +12,12 @@ import java.io.IOException;
  */
 @WebServlet(name = "StartGameServlet")
 public class StartGameServlet extends HttpServlet {
+    private final String errorNull = "Bad request";
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String filename = request.getParameter("filename");
 
-        if (filename == null) { return; }
-        if (FileCache.cache.get(filename) == null)  { return; }
+        if (filename == null) { response.sendError(500, errorNull); }
+        if (FileCache.cache.get(filename) == null)  { response.sendError(500, errorNull); }
 
         MowGameClass mowGame = new MowGameClass();
         mowGame.initBoard(FileCache.cache.get(filename));
