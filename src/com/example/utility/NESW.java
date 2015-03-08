@@ -1,4 +1,4 @@
-package com.example;
+package com.example.utility;
 
 /**
  * Created by anastasia on 04/03/15.

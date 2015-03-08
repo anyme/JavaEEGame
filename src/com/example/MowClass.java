@@ -1,5 +1,7 @@
 package com.example;
 
+import com.example.utility.NESW;
+
 /**
  * Created by anastasia on 27/02/15.
  */
@@ -8,7 +10,7 @@ public class MowClass extends MowBase {
     private final String initStatePattern = "^[0-9]+\\s[0-9]+\\s[NEWS]$";
     private final String instructionsPattern = "^[AGD]+$";
 
-    public MowClass(String aCurrentPosition) {
+    MowClass(String aCurrentPosition) {
         validateInitialStateInput(aCurrentPosition);
         parseArguments(aCurrentPosition);
     }

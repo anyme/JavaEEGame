@@ -1,4 +1,6 @@
-package com.example;
+package com.example.servlets;
+
+import com.example.utility.FileCache;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

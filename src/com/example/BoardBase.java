@@ -40,7 +40,7 @@ public abstract class BoardBase {
         return mow;
     }
 
-    public BoardBase() {
+    BoardBase() {
         this.mow = new ArrayList<MowClass>();
         this.board = new HashMap<String, MowClass>();
     }

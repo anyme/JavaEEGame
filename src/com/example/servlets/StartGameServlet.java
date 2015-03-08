@@ -1,4 +1,7 @@
-package com.example;
+package com.example.servlets;
+
+import com.example.MowGameClass;
+import com.example.utility.FileCache;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -7,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static com.example.LoggerClass.LOGGER;
+import static com.example.utility.LoggerClass.LOGGER;
 
 /**
  * Created by anastasia on 04/03/15.
@@ -18,7 +21,6 @@ public class StartGameServlet extends HttpServlet {
     private final String errorEmpty = "Requested file not found on server";
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String filename = request.getParameter("filename");
-        response.sendError(500, errorNull);
         if (filename == null) {
             LOGGER.severe(errorNull);
             response.sendError(500, errorNull);

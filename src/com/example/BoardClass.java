@@ -19,7 +19,7 @@ public class BoardClass extends BoardBase {
         parseArguments(dimen);
     }
 
-    public BoardClass() {
+    BoardClass() {
         super();
     }
 

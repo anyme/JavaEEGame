@@ -1,5 +1,7 @@
 package com.example;
 
+import com.example.utility.NESW;
+
 /**
  * Created by anastasia on 04/03/15.
  */
@@ -15,7 +17,7 @@ public abstract class MowBase {
     protected int currentInstruction;
     protected NESW directionCurrent;
 
-    public MowBase() {
+    MowBase() {
         this.xCurrent = 0;
         this.yCurrent = 0;
         this.instructions = "";

@@ -1,5 +1,8 @@
 package com.example;
 
+import com.example.utility.GameCache;
+import com.example.utility.LoggerClass;
+
 import java.io.InputStream;
 
 /**
@@ -9,7 +12,7 @@ public class MowGameClass {
 
     BoardClass board;
 
-    MowGameClass() {
+    public MowGameClass() {
         this.board = new BoardClass();
     }
 

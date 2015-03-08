@@ -6,7 +6,7 @@
 
     <servlet>
         <servlet-name>Upload File Servlet</servlet-name>
-        <servlet-class>com.example.UploadFileServlet</servlet-class>
+        <servlet-class>com.example.servlets.UploadFileServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet-mapping>
@@ -15,7 +15,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>Check File Status Servlet</servlet-name>
-        <servlet-class>com.example.CheckFileStatusServlet</servlet-class>
+        <servlet-class>com.example.servlets.CheckFileStatusServlet</servlet-class>
         <load-on-startup>2</load-on-startup>
     </servlet>
     <servlet-mapping>
@@ -24,7 +24,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>Start Game Servlet</servlet-name>
-        <servlet-class>com.example.StartGameServlet</servlet-class>
+        <servlet-class>com.example.servlets.StartGameServlet</servlet-class>
         <load-on-startup>2</load-on-startup>
     </servlet>
     <servlet-mapping>
@@ -33,7 +33,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>Check Game Staus Servlet</servlet-name>
-        <servlet-class>com.example.CheckGameStatusServlet</servlet-class>
+        <servlet-class>com.example.servlets.CheckGameStatusServlet</servlet-class>
         <load-on-startup>2</load-on-startup>
     </servlet>
     <servlet-mapping>
