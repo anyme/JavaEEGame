@@ -8,6 +8,8 @@ var request;
 var filename;
 var payload;
 var repeatTimeout = 3000;
+var repeatTimestamp = 30000;
+var currentTime = 0;
 
 $(function() {
     $("#form").validate({
@@ -18,7 +20,7 @@ $(function() {
         },
         messages : {
             file : {
-                required : "Choisissez un fichier s'il vous plait",
+                required : "Choisissez un fichier s'il vous plait"
             }
         },
         submitHandler: performAjaxSubmit
@@ -45,14 +47,21 @@ function initRequest() {
 
 function validateUploadCallback() {
     var response;
+
     if (request.readyState == 4) {
         if (request.status == 200) {
             response = request.responseXML.getElementsByTagName("message")[0].childNodes[0].nodeValue;
             if (response === "success") {
+                currentTime = 0;
                 clearInterval(repeatFileStatusCheck);
                 display("Le fichier a bien ete envoye");
                 showStartButton();
             }
+        } else {
+            currentTime = 0;
+            clearInterval(repeatFileStatusCheck);
+            display(e);
+            showForm();
         }
     }
 }
@@ -71,17 +80,23 @@ function parseResponse(response) {
     return response.replace(/\\n/g, "<br />");
 }
 
-function checkGameStatusCallback() {
+function checkGameStatusCallback(e) {
     var response;
     if (request.readyState == 4) {
         if (request.status == 200) {
             response = request.responseXML.getElementsByTagName("message")[0].childNodes[0].nodeValue;
             if (response !== "fail") {
+                currentTime = 0;
                 clearInterval(repeatGameStatusCheck);
                 response = parseResponse(response);
-                display("Results: <br/><br/>" + response);
+                display("Position finale des tondeuses: <br/><br/>" + response);
                 showForm();
             }
+        } else {
+            currentTime = 0;
+            clearInterval(repeatGameStatusCheck);
+            display(e);
+            showForm();
         }
     }
 
@@ -105,8 +120,9 @@ function performAjaxSubmit() {
 
     payload.append("file", file);
 
-    initRequest()
+    initRequest();
 
+    request.onreadystatechange = handleServerResponse;
     request.open("POST","UploadFileServlet", true);
 
     hideForm();
@@ -115,18 +131,46 @@ function performAjaxSubmit() {
     request.send(payload);
 
     repeatFileStatusCheck = setInterval(function() {
+        currentTime += repeatTimeout;
+        if (currentTime > repeatTimestamp) {
+            currentTime = 0;
+            clearInterval(repeatFileStatusCheck);
+            display("Serveur n'a pas repondu");
+            showForm();
+        }
         validateUpload();
     }, repeatTimeout);
 
 }
 
+function handleServerResponse(e) {
+    if (request.readyState == 4) {
+        if (request.status == 500) {
+            clearInterval(repeatFileStatusCheck);
+            clearInterval(repeatGameStatusCheck);
+            showForm();
+            hideStartButton();
+            display(request.responseText);
+        }
+    }
+}
+
+
 function startGameRequest() {
     var url = "StartGameServlet?filename=" + filename;
     initRequest();
 
+    request.onreadystatechange = handleServerResponse;
     request.open("POST", url, true);
     request.send(null);
     repeatGameStatusCheck = setInterval(function() {
+        currentTime += repeatTimeout;
+        if (currentTime > repeatTimestamp) {
+            currentTime = 0;
+            clearInterval(repeatGameStatusCheck);
+            display("Serveur n'a pas repondu");
+            showForm();
+        }
         checkGameStatus();
     }, repeatTimeout);
     display("En attent des resultats...")
