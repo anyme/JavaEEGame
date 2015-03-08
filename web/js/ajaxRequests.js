@@ -128,7 +128,6 @@ function performAjaxSubmit() {
     payload.append("file", file);
 
     var request = initRequest();
-
     request.onreadystatechange = (function(request) {
         return function() {
             handleServerResponse(request);
@@ -170,7 +169,6 @@ function handleServerResponse(request) {
 function startGameRequest() {
     var url = "StartGameServlet?filename=" + filename;
     var request = initRequest();
-
     request.onreadystatechange = (function(request) {
         return function() {
             handleServerResponse(request);
