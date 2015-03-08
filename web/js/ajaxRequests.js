@@ -4,7 +4,6 @@
 
 var repeatFileStatusCheck;
 var repeatGameStatusCheck;
-var request;
 var filename;
 var payload;
 var repeatTimeout = 3000;
@@ -39,13 +38,13 @@ function extractFilename() {
 
 function initRequest() {
     if (window.XMLHttpRequest) {
-        request = new XMLHttpRequest();
+        return new XMLHttpRequest();
     } else if (window.ActiveXObject) {
-        request = new ActiveXObject("Microsoft.XMLHTTP");
+         return new ActiveXObject("Microsoft.XMLHTTP");
     }
 }
 
-function validateUploadCallback() {
+function validateUploadCallback(request) {
     var response;
 
     if (request.readyState == 4) {
@@ -70,9 +69,13 @@ function validateUpload() {
     filename = extractFilename();
     var url = "CheckFileStatusServlet?filename=" + filename;
 
-    initRequest();
+    var request = initRequest();
     request.open("GET", url, true);
-    request.onreadystatechange = validateUploadCallback;
+    request.onreadystatechange = (function(request) {
+        return function() {
+            validateUploadCallback(request);
+        }
+    })(request);
     request.send(null);
 
 }
@@ -80,7 +83,7 @@ function parseResponse(response) {
     return response.replace(/\\n/g, "<br />");
 }
 
-function checkGameStatusCallback(e) {
+function checkGameStatusCallback(request) {
     var response;
     if (request.readyState == 4) {
         if (request.status == 200) {
@@ -105,9 +108,13 @@ function checkGameStatusCallback(e) {
 function checkGameStatus() {
     var url = "CheckGameStatusServlet?filename=" + filename;
 
-    initRequest();
+    var request = initRequest();
     request.open("GET", url, true);
-    request.onreadystatechange = checkGameStatusCallback;
+    request.onreadystatechange = (function(request) {
+        return function() {
+            checkGameStatusCallback(request);
+        }
+    })(request);
     request.send(null);
 
 }
@@ -120,9 +127,13 @@ function performAjaxSubmit() {
 
     payload.append("file", file);
 
-    initRequest();
+    var request = initRequest();
 
-    request.onreadystatechange = handleServerResponse;
+    request.onreadystatechange = (function(request) {
+        return function() {
+            handleServerResponse(request);
+        }
+    })(request);
     request.open("POST","UploadFileServlet", true);
 
     hideForm();
@@ -143,7 +154,7 @@ function performAjaxSubmit() {
 
 }
 
-function handleServerResponse(e) {
+function handleServerResponse(request) {
     if (request.readyState == 4) {
         if (request.status == 500) {
             clearInterval(repeatFileStatusCheck);
@@ -158,9 +169,13 @@ function handleServerResponse(e) {
 
 function startGameRequest() {
     var url = "StartGameServlet?filename=" + filename;
-    initRequest();
+    var request = initRequest();
 
-    request.onreadystatechange = handleServerResponse;
+    request.onreadystatechange = (function(request) {
+        return function() {
+            handleServerResponse(request);
+        }
+    })(request);
     request.open("POST", url, true);
     request.send(null);
     repeatGameStatusCheck = setInterval(function() {
