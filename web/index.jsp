@@ -5,7 +5,6 @@
       <script type="text/javascript" src="jquery/jquery.validate.min.js "></script>
       <script type="text/javascript" src="js/ajaxRequests.js" ></script>
 
-
   </head>
   <div id="outsideContainer">
     <div id="header"></div>
@@ -17,6 +16,7 @@
       </form>
       <div id="status">
       </div>
+        <br/>
       <div>
           <button id="start" type="button" onclick="startGameRequest();">Lancer Jeu</button>
       </div>

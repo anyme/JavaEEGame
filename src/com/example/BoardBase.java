@@ -21,14 +21,6 @@ public abstract class BoardBase {
         this.width = width;
     }
 
-    public void setBoard(HashMap<String, MowClass> board) {
-        this.board = board;
-    }
-
-    public void setMow(ArrayList<MowClass> mow) {
-        this.mow = mow;
-    }
-
     public int getHeight() {
 
         return height;
