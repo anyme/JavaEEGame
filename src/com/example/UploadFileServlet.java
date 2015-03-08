@@ -25,16 +25,16 @@ public class UploadFileServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String filename;
 
-                if ((filename = getFileName(request.getPart("file"))) != null) {
-                    FileCache.cache.put(filename, in);
-                }
         InputStream in = new BufferedInputStream(request.getPart("file").getInputStream());
+        if ((filename = getFileName(request.getPart("file"))) != null) {
+            FileCache.cache.put(filename, in);
+            LoggerClass.LOGGER.info("File successfully uploaded");
         }
     }
 
     private String getFileName(Part part) {
         String contentDisp = part.getHeader("content-disposition");
-        System.out.println("content-disposition header= "+contentDisp);
+        System.out.println("content-disposition header= " + contentDisp);
         String[] tokens = contentDisp.split(";");
         for (String token : tokens) {
             if (token.trim().startsWith("filename")) {

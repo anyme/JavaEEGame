@@ -18,11 +18,11 @@ public class MowGameClass {
     }
 
     public void play() {
+        LoggerClass.LOGGER.info("Game is launched");
         board.startReadingInstructions();
     }
 
     public void getResults(String filename) {
-        System.out.println(" board positions :  " + board.getPositions());
         GameCache.cache.put(filename, board.getPositions());
     }
 }

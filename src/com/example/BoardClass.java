@@ -92,6 +92,9 @@ public class BoardClass extends BoardBase {
         }
     }
 
+    /**
+     * Start reading set of the instructions of each Mow
+     */
     public void startReadingInstructions() {
         for (MowClass aMow : mow) {
             handleMowMovements(aMow);
