@@ -26,7 +26,11 @@
 	height: 5%;
 }
 #headerTitle {
-	margin-left: 5px;
+	margin-leftt: 5px;
+    padding: 10px;
+    background-color: #404964;
+    color: #FFFFFF;
+    font-weight: bold;
 }
 #file {
 	padding: 5px;
@@ -37,7 +41,8 @@
 	margin: 5px;
 	font-size: 14pt;
 	border-radius: 10px;
-	background-color: #49AEC0;
+	background-color: #404964;
+    color: #FFFFFF;
 }
 #status {
     margin: 5px;
@@ -49,6 +54,7 @@
     margin: 5px;
     font-size: 14pt;
     border-radius: 10px;
-    background-color: #49AEC0;
+    background-color: #404964;
+    color: #FFFFFF;
     display: none;
 }
