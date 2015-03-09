@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.FutureTask;
 
 import static com.example.utility.LoggerClass.LOGGER;
 
@@ -17,8 +20,10 @@ import static com.example.utility.LoggerClass.LOGGER;
  */
 @WebServlet(name = "StartGameServlet")
 public class StartGameServlet extends HttpServlet {
+    private static final ExecutorService executor = Executors.newSingleThreadExecutor();
     private final String errorNull = "Bad request";
     private final String errorEmpty = "Requested file not found on server";
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String filename = request.getParameter("filename");
         if (filename == null) {
@@ -32,14 +37,14 @@ public class StartGameServlet extends HttpServlet {
             return;
         }
 
-        MowGameClass mowGame = new MowGameClass();
+        MowGameClass mowGame = new MowGameClass(filename);
+        FutureTask<String> futureTask = new FutureTask<String>(mowGame);
         try {
-            mowGame.initBoard(FileCache.cache.get(filename));
+            executor.execute(futureTask);
         } catch (Exception e) {
             LOGGER.severe(e.getMessage());
             response.sendError(500, e.getMessage());
         }
-        mowGame.play();
-        mowGame.getResults(filename);
+
     }
 }
