@@ -28,11 +28,14 @@ public class UploadFileServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String filename;
 
+        InputStream inOrig = request.getPart("file").getInputStream();
+
         InputStream in = new BufferedInputStream(request.getPart("file").getInputStream());
         if ((filename = getFileName(request.getPart("file"))) != null) {
             FileCache.cache.put(filename, in);
             LoggerClass.LOGGER.info("File successfully uploaded");
         }
+        inOrig.close();
     }
 
     private String getFileName(Part part) {

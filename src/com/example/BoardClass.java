@@ -35,7 +35,6 @@ public class BoardClass extends BoardBase {
             mow.add(aMow);
         }
         reader.close();
-
     }
 
     private void parseArguments(String args) {

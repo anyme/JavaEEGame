@@ -18,6 +18,7 @@ public class MowGameClass {
 
     public void initBoard(InputStream in) throws Exception {
         board.initBoard(in);
+        in.close();
     }
 
     public void play() {
