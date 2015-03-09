@@ -10,14 +10,14 @@
 	margin: 0;
 	width: 100%;
 	height: 100%;
-	background-color: #DD577A;
+	background-color: #404964;
 	overflow: hidden;
 }
 #insideContainer {
 	margin-left: 10%;
 	margin-right: 10%;
 	padding: 20px;
-	width: fill;
+	width: auto;
 	height: 80%;
 	background-color: #FFF0CF;
 	border-radius: 15px;
@@ -31,6 +31,7 @@
     background-color: #404964;
     color: #FFFFFF;
     font-weight: bold;
+    border-radius: 15px;
 }
 #file {
 	padding: 5px;
