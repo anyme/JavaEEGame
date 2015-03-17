@@ -1,8 +1,21 @@
-subprojects {
+apply plugin: 'war'
+apply plugin: 'java'
+apply plugin: 'idea'
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
 
-    apply plugin : "java"
+configurations {
+    provided
+}
+sourceSets {
+    main { compileClasspath += configurations.provided }
+}
 
-    repositories {
-        mavenCentral()
-    }
+dependencies {
+    compile 'javax:javaee-api:7.0'
+    compile 'javax.servlet:javax.servlet-api:3.0.1'
+    compile 'javax.servlet:servlet-api:2.5'
+    compile 'javax.servlet:jstl:1.1.2'
 }

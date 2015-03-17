@@ -1,6 +1,0 @@
-apply plugin: "war"
-
-dependencies {
-    compile project(":src")
-    compile "javax.servlet:servlet-api:2.5"
-}
